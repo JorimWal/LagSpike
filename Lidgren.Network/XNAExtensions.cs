@@ -221,18 +221,6 @@ namespace Lidgren.Network.Xna
 		}
 
 		/// <summary>
-		/// Writes an orthonormal matrix (rotation, translation but not scaling or projection)
-		/// </summary>
-		public static void WriteMatrix(this NetBuffer message, ref Matrix matrix)
-		{
-			Quaternion rot = Quaternion.CreateFromRotationMatrix(matrix);
-			WriteRotation(message, rot, 24);
-			message.Write(matrix.M41);
-			message.Write(matrix.M42);
-			message.Write(matrix.M43);
-		}
-
-		/// <summary>
 		/// Writes an orthonormal matrix (rotation, translation but no scaling or projection)
 		/// </summary>
 		public static void WriteMatrix(this NetBuffer message, Matrix matrix)
