@@ -89,6 +89,9 @@
     <Compile Include="Engine Statics\InputHelper.cs" />
     <Compile Include="Engine Statics\Root.cs" />
     <Compile Include="LagSpikeBase.cs" />
+    <Compile Include="Objects\Block.cs" />
+    <Compile Include="Objects\Bullet.cs" />
+    <Compile Include="Objects\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="States\TitleMenuState.cs" />
   </ItemGroup>
