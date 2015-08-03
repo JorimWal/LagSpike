@@ -76,6 +76,7 @@
     <Compile Include="Engine Objects\Animation.cs" />
     <Compile Include="Engine Objects\Button.cs" />
     <Compile Include="Engine Objects\GameObject.cs" />
+    <Compile Include="Engine Objects\GameObjectGrid.cs" />
     <Compile Include="Engine Objects\GameObjectList.cs" />
     <Compile Include="Engine Objects\IGameLoopObject.cs" />
     <Compile Include="Engine Objects\SpriteGameObject.cs" />

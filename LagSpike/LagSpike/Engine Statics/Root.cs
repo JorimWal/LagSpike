@@ -11,11 +11,17 @@ public class Root
 
     public void AddObject(GameObject obj)
     {
-        if (this.GetList(obj.Type) != null)
-            this.GetList(obj.Type).Add(obj);
+        if (rootDictionary.ContainsKey(obj.Type))
+            rootDictionary[obj.Type].Add(obj);
         else
         {
-            rootDictionary[obj.Type] = new GameObjectList();
+            switch(obj.Type)
+            {
+                default :
+                    rootDictionary[obj.Type] = new GameObjectList();
+                    rootDictionary[obj.Type].Add(obj);
+                    break;
+            }
         }
     }
 
