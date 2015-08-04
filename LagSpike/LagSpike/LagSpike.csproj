@@ -79,6 +79,9 @@
     <Compile Include="Engine Objects\GameObjectGrid.cs" />
     <Compile Include="Engine Objects\GameObjectList.cs" />
     <Compile Include="Engine Objects\IGameLoopObject.cs" />
+    <Compile Include="Engine Statics\PostOffice.cs" />
+    <Compile Include="Messages\CreateMessage.cs" />
+    <Compile Include="Messages\IGameMessage.cs" />
     <Compile Include="Engine Objects\SpriteGameObject.cs" />
     <Compile Include="Engine Objects\SpriteSheet.cs" />
     <Compile Include="Engine Statics\AssetManager.cs" />
@@ -90,6 +93,7 @@
     <Compile Include="Engine Statics\InputHelper.cs" />
     <Compile Include="Engine Statics\Root.cs" />
     <Compile Include="LagSpikeBase.cs" />
+    <Compile Include="Messages\UpdateMessage.cs" />
     <Compile Include="Objects\Block.cs" />
     <Compile Include="Objects\Bullet.cs" />
     <Compile Include="Objects\Player.cs" />
