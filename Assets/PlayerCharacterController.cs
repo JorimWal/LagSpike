@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class PlayerController : NetworkBehaviour {
+public class PlayerCharacterController : NetworkBehaviour {
 
 	public float movementSpeed = 5;
 	public float pingInSeconds = 0f;
