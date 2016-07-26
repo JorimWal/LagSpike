@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.Networking.Types;
-using UnityEngine.Networking.Match;
 using System.Collections;
 
 
@@ -180,16 +179,7 @@ namespace UnityStandardAssets.Network
                  
         public void StopHostClbk()
         {
-            if (_isMatchmaking)
-            {
-                this.matchMaker.DestroyMatch((NetworkID)_currentMatchID, OnMatchDestroyed);
-                _disconnectServer = true;
-            }
-            else
-            {
-                StopHost();
-            }
-
+            StopHost();
             
             ChangeTo(mainMenuPanel);
         }
@@ -243,15 +233,6 @@ namespace UnityStandardAssets.Network
             base.OnMatchCreate(matchInfo);
 
             _currentMatchID = (System.UInt64)matchInfo.networkId;
-        }
-
-        public void OnMatchDestroyed(BasicResponse resp)
-        {
-            if (_disconnectServer)
-            {
-                StopMatchMaker();
-                StopHost();
-            }
         }
 
         //allow to handle the (+) button to add/remove player
