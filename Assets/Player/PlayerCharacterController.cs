@@ -6,6 +6,10 @@ public class PlayerCharacterController : NetworkBehaviour {
 
 	public float movementSpeed = 5;
 	public float pingInSeconds = 0f;
+    public float fireRate = 0.5f;
+    public float nextFire = 0.0f;
+    public GameObject Spike;
+    public Transform ShotSpawn;
 
 	private Rigidbody rb;
 	private Queue LagQueue = new Queue();
@@ -32,6 +36,7 @@ public class PlayerCharacterController : NetworkBehaviour {
 		float moveVertical = Input.GetAxis("Vertical");
 		Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
         Vector3 pointToLook = Vector3.zero;
+        bool clicked;
 
         //Determine a lookat point
         Ray cameraRay = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -42,7 +47,9 @@ public class PlayerCharacterController : NetworkBehaviour {
             pointToLook = cameraRay.GetPoint(rayLength);
         }
 
-		InputObject io = new InputObject(Time.time, movement, pointToLook);
+        clicked = Input.GetMouseButton(0);
+
+		InputObject io = new InputObject(Time.time, movement, pointToLook, clicked);
 		LagQueue.Enqueue(io);
 
         if (movement.sqrMagnitude > 0.1)
@@ -65,6 +72,12 @@ public class PlayerCharacterController : NetworkBehaviour {
 			rb.velocity = (input.InputVector * movementSpeed);
             Vector3 LookAtVector = input.LookAtVector + transform.position;
             transform.LookAt(new Vector3(LookAtVector.x, transform.position.y, LookAtVector.z));
+
+            if (input.LeftClick && Time.time > nextFire)
+            {
+                Instantiate(Spike, ShotSpawn.position, ShotSpawn.rotation);
+                nextFire = Time.time + fireRate;
+            }
 		}
 	}
 
@@ -80,11 +93,13 @@ class InputObject
 	public float TimeStamp;
 	public Vector3 InputVector;
     public Vector3 LookAtVector;
+    public bool LeftClick;
 
-	public InputObject(float TimeStamp, Vector3 InputVector, Vector3 LookAtVector)
+	public InputObject(float TimeStamp, Vector3 InputVector, Vector3 LookAtVector, bool LeftClick)
 	{
 		this.TimeStamp = TimeStamp;
 		this.InputVector = InputVector;
         this.LookAtVector = LookAtVector;
+        this.LeftClick = LeftClick;
 	}
 }

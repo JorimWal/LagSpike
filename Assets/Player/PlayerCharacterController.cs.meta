@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fc94e68fd5974bd43b2e2f2d1f56a430
+timeCreated: 1469550953
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Spike: {fileID: 160194, guid: 15c70ada6eb501a48896393cf4f099dd, type: 2}
+  - ShotSpawn: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
