@@ -4,6 +4,7 @@ using System.Collections;
 public class SpikeBehaviour : MonoBehaviour {
 
     private Rigidbody rb;
+    private Transform tr;
     public float movementSpeed = 10f;
     public float originTime;
 
@@ -11,8 +12,9 @@ public class SpikeBehaviour : MonoBehaviour {
     {
         originTime = Time.time;
         rb = GetComponent<Rigidbody>();
-        rb.velocity = movementSpeed * rb.rotation.eulerAngles;
-	}
+        tr = GetComponent<Transform>();
+        rb.velocity = movementSpeed * tr.rotation.eulerAngles.normalized;
+    }
 	
 	void Update() 
     {
