@@ -1,5 +1,5 @@
-bin
-obj
+/[Dd]ebug[Cc]ompile_[Dd]ata/
+/[Tt]est_[Dd]ata/
 
 /[Ll]ibrary/
 /[Tt]emp/
