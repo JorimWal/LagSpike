@@ -3,17 +3,21 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class PlayerCharacterController : NetworkBehaviour {
+	[SyncVar]
+	public string playerName;
+	[SyncVar(hook = "ApplyColor")]
+	public Color playerColor;
 
 	public float movementSpeed = 5;
 	public float pingInSeconds = 0f;
     public float fireRate = 0.5f;
-    public float nextFire = 0.0f;
     public GameObject Spike;
     public Transform ShotSpawn;
 
 	private Rigidbody rb;
 	private Queue LagQueue = new Queue();
     private Camera mainCamera;
+	private float nextFire = 0.0f;
 
 	void Start ()
 	{
@@ -51,11 +55,6 @@ public class PlayerCharacterController : NetworkBehaviour {
 
 		InputObject io = new InputObject(Time.time, movement, pointToLook, clicked);
 		LagQueue.Enqueue(io);
-
-        if (movement.sqrMagnitude > 0.1)
-            GetComponent<Renderer>().material.color = Color.red;
-        else
-            GetComponent<Renderer>().material.color = Color.white;
 	}
 
 	private void ProcessQueue()
@@ -83,8 +82,10 @@ public class PlayerCharacterController : NetworkBehaviour {
 
 	void ApplyColor(Color c)
 	{
-		foreach (var v in GetComponentsInChildren<Renderer>())
-			v.material.color = c;
+		GetComponent<Renderer>().material.color = c;
+
+		//foreach (var v in GetComponentsInChildren<Renderer>())
+		//	v.material.color = c;
 	}
 }
 

@@ -556,6 +556,7 @@ GameObject:
   - 114: {fileID: 389400706}
   - 114: {fileID: 389400705}
   - 114: {fileID: 389400704}
+  - 114: {fileID: 389400703}
   m_Layer: 5
   m_Name: LobbyManager
   m_TagString: Untagged
@@ -563,6 +564,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &389400703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 389400702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f390f2d74ea0c2b4da50d44ed316d97f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &389400704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1997,10 +2009,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc8e7df4caaef14e97fb5dbb4825c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lobbyManager: {fileID: 389400704}
-  serverListRect: {fileID: 1509468066}
-  serverEntryPrefab: {fileID: 104980, guid: 9a1af8c2b03c38c43a3e9c2b43db4483, type: 2}
-  noServerFound: {fileID: 1096160143}
 --- !u!222 &984419148
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3873,7 +3881,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyManager: {fileID: 389400704}
-  lobbyServerList: {fileID: 984419146}
   lobbyPanel: {fileID: 722419986}
   ipInput: {fileID: 115851420}
 --- !u!1 &1605920455
