@@ -11,15 +11,16 @@ public class PlayerCharacterController : NetworkBehaviour
 
 	public float movementSpeed = 5;
 	public float pingInSeconds = 0f;
-	public float fireRate = 0.5f;
+	public float roundsPerMinute = 60f;
 	public GameObject Spike;
 	public Transform ShotSpawn;
 
 	private Rigidbody rb;
 	private Queue LagQueue = new Queue();
 	private Camera mainCamera;
-	private float nextFire = 0.0f;
 
+	private float firingTimer = 0.0f;
+	
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -72,10 +73,17 @@ public class PlayerCharacterController : NetworkBehaviour
 			rb.velocity = (input.InputVector * movementSpeed);
 			transform.LookAt(new Vector3(input.LookAtVector.x, transform.position.y, input.LookAtVector.z));
 
-			if (input.LeftClick && Time.time > nextFire)
+			// Accurately keep track of the next moment the player can fire
+			if (firingTimer < 0)
+				firingTimer = 0;
+			else if (firingTimer > 0)
+				firingTimer -= Time.deltaTime;
+
+			// Check if the player fires and the timer allows firing
+			if (input.LeftClick && firingTimer <= 0)
 			{
 				Instantiate(Spike, ShotSpawn.position, ShotSpawn.rotation);
-				nextFire = Time.time + fireRate;
+				firingTimer += 60f / roundsPerMinute;
 			}
 		}
 	}
