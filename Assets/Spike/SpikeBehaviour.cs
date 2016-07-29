@@ -1,24 +1,26 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class SpikeBehaviour : MonoBehaviour {
+public class SpikeBehaviour : MonoBehaviour
+{
+	public float movementSpeed = 10f;
 
-    private Rigidbody rb;
-    private Transform tr;
-    public float movementSpeed = 10f;
-    public float originTime;
+	private Rigidbody rb;
+	private Transform tr;
+	private float originTime;
 
-	void Start() 
-    {
-        originTime = Time.time;
-        rb = GetComponent<Rigidbody>();
-        tr = GetComponent<Transform>();
-        rb.velocity = movementSpeed * tr.rotation.eulerAngles.normalized;
-    }
-	
-	void Update() 
-    {
-        if ((Time.time - originTime) > 1)
-            Destroy(this);
+	void Start()
+	{
+		rb = GetComponentInChildren<Rigidbody>();
+		tr = GetComponent<Transform>();
+
+		originTime = Time.time;
+
+		rb.velocity = movementSpeed * tr.forward.normalized;
+	}
+
+	void Update()
+	{
+		if (Time.time - originTime > 1)
+			Destroy(this);
 	}
 }
