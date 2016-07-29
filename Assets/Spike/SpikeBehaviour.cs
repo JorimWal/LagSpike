@@ -21,6 +21,6 @@ public class SpikeBehaviour : MonoBehaviour
 	void Update()
 	{
 		if (Time.time - originTime > 1)
-			Destroy(this);
+			Destroy(gameObject);
 	}
 }
