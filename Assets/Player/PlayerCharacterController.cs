@@ -2,7 +2,8 @@
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class PlayerCharacterController : NetworkBehaviour {
+public class PlayerCharacterController : NetworkBehaviour
+{
 	[SyncVar]
 	public string playerName;
 	[SyncVar(hook = "ApplyColor")]
@@ -10,22 +11,22 @@ public class PlayerCharacterController : NetworkBehaviour {
 
 	public float movementSpeed = 5;
 	public float pingInSeconds = 0f;
-    public float fireRate = 0.5f;
-    public GameObject Spike;
-    public Transform ShotSpawn;
+	public float fireRate = 0.5f;
+	public GameObject Spike;
+	public Transform ShotSpawn;
 
 	private Rigidbody rb;
 	private Queue LagQueue = new Queue();
-    private Camera mainCamera;
+	private Camera mainCamera;
 	private float nextFire = 0.0f;
 
-	void Start ()
+	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
-        mainCamera = FindObjectOfType<Camera>();
+		mainCamera = FindObjectOfType<Camera>();
 	}
 
-	void FixedUpdate ()
+	void FixedUpdate()
 	{
 		if (!isLocalPlayer)
 			return;
@@ -39,19 +40,19 @@ public class PlayerCharacterController : NetworkBehaviour {
 		float moveHorizontal = Input.GetAxis("Horizontal");
 		float moveVertical = Input.GetAxis("Vertical");
 		Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        Vector3 pointToLook = Vector3.zero;
-        bool clicked;
+		Vector3 pointToLook = Vector3.zero;
+		bool clicked;
 
-        //Determine a lookat point
-        Ray cameraRay = mainCamera.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        float rayLength;
-        if (groundPlane.Raycast(cameraRay, out rayLength))
-        {
-            pointToLook = cameraRay.GetPoint(rayLength);
-        }
+		//Determine a lookat point
+		Ray cameraRay = mainCamera.ScreenPointToRay(Input.mousePosition);
+		Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+		float rayLength;
+		if (groundPlane.Raycast(cameraRay, out rayLength))
+		{
+			pointToLook = cameraRay.GetPoint(rayLength);
+		}
 
-        clicked = Input.GetMouseButton(0);
+		clicked = Input.GetMouseButton(0);
 
 		InputObject io = new InputObject(Time.time, movement, pointToLook, clicked);
 		LagQueue.Enqueue(io);
@@ -69,14 +70,13 @@ public class PlayerCharacterController : NetworkBehaviour {
 			input = (InputObject)LagQueue.Dequeue();
 
 			rb.velocity = (input.InputVector * movementSpeed);
-            Vector3 LookAtVector = input.LookAtVector + transform.position;
-            transform.LookAt(new Vector3(LookAtVector.x, transform.position.y, LookAtVector.z));
+			transform.LookAt(new Vector3(input.LookAtVector.x, transform.position.y, input.LookAtVector.z));
 
-            if (input.LeftClick && Time.time > nextFire)
-            {
-                Instantiate(Spike, ShotSpawn.position, ShotSpawn.rotation);
-                nextFire = Time.time + fireRate;
-            }
+			if (input.LeftClick && Time.time > nextFire)
+			{
+				Instantiate(Spike, ShotSpawn.position, ShotSpawn.rotation);
+				nextFire = Time.time + fireRate;
+			}
 		}
 	}
 
@@ -93,14 +93,14 @@ class InputObject
 {
 	public float TimeStamp;
 	public Vector3 InputVector;
-    public Vector3 LookAtVector;
-    public bool LeftClick;
+	public Vector3 LookAtVector;
+	public bool LeftClick;
 
 	public InputObject(float TimeStamp, Vector3 InputVector, Vector3 LookAtVector, bool LeftClick)
 	{
 		this.TimeStamp = TimeStamp;
 		this.InputVector = InputVector;
-        this.LookAtVector = LookAtVector;
-        this.LeftClick = LeftClick;
+		this.LookAtVector = LookAtVector;
+		this.LeftClick = LeftClick;
 	}
 }
