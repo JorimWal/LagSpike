@@ -2,13 +2,8 @@
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class PlayerCharacterController : NetworkBehaviour
+public class PlayerCharacterController : MonoBehaviour
 {
-	[SyncVar]
-	public string playerName;
-	[SyncVar(hook = "ApplyColor")]
-	public Color playerColor;
-
 	public float movementSpeed = 5;
 	public float pingInSeconds = 0f;
 	public float roundsPerMinute = 60f;
@@ -29,9 +24,6 @@ public class PlayerCharacterController : NetworkBehaviour
 
 	void FixedUpdate()
 	{
-		if (!isLocalPlayer)
-			return;
-
 		HandleInput();
 		ProcessQueue();
 	}
@@ -70,7 +62,8 @@ public class PlayerCharacterController : NetworkBehaviour
 
 			input = (InputObject)LagQueue.Dequeue();
 
-			rb.velocity = (input.InputVector * movementSpeed);
+            Vector3 inputSpeed = (input.InputVector * movementSpeed);
+            rb.velocity = new Vector3(inputSpeed.x, rb.velocity.y, inputSpeed.z);
 			transform.LookAt(new Vector3(input.LookAtVector.x, transform.position.y, input.LookAtVector.z));
 
 			// Accurately keep track of the next moment the player can fire
