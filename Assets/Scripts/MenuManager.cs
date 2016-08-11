@@ -17,4 +17,9 @@ public class MenuManager : MonoBehaviour
 		CurrentMenu = menu;
 		CurrentMenu.IsOpen = true;
 	}
+
+    public void LoadLevel(string levelname)
+    {
+        Application.LoadLevel(levelname);
+    }
 }
